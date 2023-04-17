@@ -9,7 +9,7 @@ user_name varchar(25)
 
 create table `account`(
 account_id int primary key auto_increment,
-`password` varchar(50)
+`password` varchar(15)
 );
 
 create table `account_role` (
