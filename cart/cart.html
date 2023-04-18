@@ -1,110 +1,193 @@
-<div style="margin-top: 50px">
-    <section class="h-100" style="margin-top: 50px">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12">
-                    <div class="card card-registration card-registration-2"
-                         style="border-radius: 15px; background-color: whitesmoke">
-                        <div class="card-body p-0">
-                            <div class="row g-0">
-                                <div class="col-lg-8">
-                                    <div class="p-5" *ngIf="iOderDetailList.length != 0; else elseBlock">
-                                        <div class="d-flex justify-content-between align-items-center mb-5">
-                                            <h3 class="fw-bold mb-0 ">Giỏ hàng của bạn</h3>
-                                        </div>
-                                        <hr class="my-4">
-                                        <div class="row mb-4 d-flex justify-content-between align-items-center"
-                                             *ngFor="let oderDetail of iOderDetailList">
-                                            <div class="col-md-2 col-lg-2 col-xl-2">
-                                                <img [src]="oderDetail.image" style="width: 90%">
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-3">
-                                                <h6 class="text-black">{{oderDetail.perfumeName}}</h6>
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <button class="btn btn-link px-2" (click)="changeQuantity(0,oderDetail.idPerfume)">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
-                                                <input id="form1" min="0" name="quantity" value="{{oderDetail.quantity}}"
-                                                       class="form-control form-control-sm" style="width: 50px"/>
-                                                <button class="btn btn-link px-2" (click)="changeQuantity(1,oderDetail.idPerfume)">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 class="mb-0" style="color: red">{{oderDetail.price|number}}₫</h6>
-                                            </div>
-                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a class="text-muted"><i class="fas fa-times" (click)="deletePerfumeByIdOrder(oderDetail)"></i></a>
-                                            </div>
-                                        </div>
-                                        <hr class="my-4">
-                                        <div style="margin-bottom: 1%; margin-left: 10px" routerLink="/"><< Quay lại trang chủ</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="nan.css">
 
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 bg-grey">
-                                    <div class="p-5">
-                                        <h4 class="fw-bold mb-5 mt-2 pt-1 text-uppercase">Tổng tiền tạm tính</h4>
-                                        <hr class="my-4">
-                                        <div class="d-flex justify-content-between mb-4">
-                                            <h5>Số mặt hàng: <span style="margin-left: 10px">{{totalCart.quantityUser}}</span></h5>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <img src="https://hadibeauty.com/wp-content/uploads/2021/10/Group-56-1.png">
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="text_quality"><b>Phí ship cực rẻ</b></div>
-                                                <div class="text_des">D3T hỗ trợ phí ship cực ưu đãi</div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <img src="https://hadibeauty.com/wp-content/uploads/2021/10/Group-66-1.png" alt="">
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="text_quality"><b>Cam kết chính hãng</b></div>
-                                                <div class="text_des">Hoàn tiền 300% nếu hàng fake</div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <img src="https://hadibeauty.com/wp-content/uploads/2021/10/Group-57-1.png" alt=""></div>
-                                            <div class="col-lg-8">
-                                                <div class="text_quality"><b>Uy tín 7 năm tại Đà Nẵng</b></div>
-                                                <div class="text_des">Thương hiệu uy tín</div>
-                                            </div>
-                                        </div>
+</head>
+<body>
+<div class="container">
+    <a href="" style="color: #9e9e9e">Trang chủ ></a> <span style="color: #9e9e9e">Giỏ hàng của bạn</span>
+    <div class="row my-2">
+        <h4><b>GIỎ HÀNG CỦA BẠN</b></h4>
+    </div>
+</div>
 
-                                        <hr class="my-4">
-                                        <div class="d-flex justify-content-between mb-5">
-                                            <p style="font-size: 19px; color: #2b2b34"><b>Tổng tiền: </b></p>
-                                            <h4 style="color: red">{{totalCart.totalCostUser|number}} ₫</h4>
-                                        </div>
-                                        <button routerLink="/oder/create" type="button" class="btn btn-warning btn-lg btn-block"
-                                                style="margin-left: 60px" (click)="payment(totalCostUser)">
-                                            Thanh toán
-                                        </button>
-                                    </div>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-lg-6">
+            <button class="btn btn-outline-primary">Tiếp tục mua hàng</button></div>
+            <div class="col-lg-6"></div>
 
-                                </div>
-                            </div>
-                            <ng-template #elseBlock>
-                                <div class="text-center m-5">
-                                    <img
-                                            src="https://firebasestorage.googleapis.com/v0/b/perfume-3c9a8.appspot.com/o/gio%20hang%20trong.png?alt=media&token=5294fe12-59ca-4ec5-97c2-c70b3244a6ec"
-                                            height="300" width="400" style="margin-top: 100px"/>
-                                </div>
-                                <div style="margin-bottom: 1%; margin-left: 10px" routerLink="/"><< Quay lại trang chủ</div>
-                            </ng-template>
-                        </div>
-                    </div>
+        </div>
+        <div style="text-align: center" class="row">
+            <div class="row my-3 py-3" style="background: #eeeeee">
+                <div class="col-lg-2">
+                    <b>SẢN PHẨM</b>
+                </div>
+
+                <div class="col-lg-4"></div>
+
+                <div class="col-lg-2">
+                    <b>GIÁ</b>
+                </div>
+
+                <div class="col-lg-2">
+                    <b>SỐ LƯỢNG</b>
+                </div>
+
+                <div class="col-lg-2">
+                    <b>TỔNG</b>
+                </div>
+            </div>
+
+            <div class="row my-3">
+                <div class="col-lg-2">
+                    <img src="https://cdn.shopify.com/s/files/1/0624/1746/9697/products/thuc-an-hat-meo-con-royal-canin-kitten-36-paddy-2_940x.jpg?v=1662876165"
+                         style="width: 150px; height: 150px;">
+                </div>
+
+                <div class="col-lg-4" style="text-align: left">
+                    <b>Thức Ăn Hạt Mèo Con Royal Canin Kitten 36</b>
+                </div>
+
+                <div class="col-lg-2">
+                    <b>124.000đ</b>
+                </div>
+
+                <div class="col-lg-2">
+                    1
+                </div>
+
+                <div class="col-lg-2">
+                    <b>124.000đ</b>
+                </div>
+            </div>
+
+            <div class="row my-3">
+                <div class="col-lg-2">
+                    <img src="https://cdn.shopify.com/s/files/1/0624/1746/9697/products/hat-royal-canin-indoor-cho-meo-truong-thanh-nuoi-trong-nha-paddy-2.jpg?v=1661397007"
+                         style="width: 150px; height: 150px;">
+                </div>
+
+                <div class="col-lg-4" style="text-align: left">
+                    <b>Hạt Royal Canin Indoor Cho Mèo Trưởng Thành Nuôi Trong Nhà</b>
+                </div>
+
+                <div class="col-lg-2">
+                    <b>120.000₫</b>
+                </div>
+
+                <div class="col-lg-2">
+                    1
+                </div>
+
+                <div class="col-lg-2">
+                    <b>120.000₫</b>
+                </div>
+            </div>
+
+            <div class="row my-3" style="background: white">
+                <div class="col-lg-2">
+                    <img src="https://cdn.shopify.com/s/files/1/0624/1746/9697/products/hat-royal-canin-fit-32-cho-meo-truong-thanh-it-van-djong-paddy-8.jpg?v=1660972463"
+                         style="width: 150px; height: 150px;">
+                </div>
+
+                <div class="col-lg-4" style="text-align: left">
+                    <b>Hạt Royal Canin Fit 32 Cho Mèo Trưởng Thành Ít Vận Động</b>
+                </div>
+
+                <div class="col-lg-2">
+                    <b>109.000₫</b>
+                </div>
+
+                <div class="col-lg-2">
+                    1
+                </div>
+
+                <div class="col-lg-2">
+                    <b>109.000₫</b>
+                </div>
+            </div>
+
+            <div class="row my-3" style="background: white">
+                <div class="col-lg-2">
+                    <img src="https://cdn.shopify.com/s/files/1/0624/1746/9697/products/hat-royal-canin-poodle-puppy-cho-cho-con-poodle-paddy-1.jpg?v=1660972543"
+                         style="width: 150px; height: 150px;">
+                </div>
+
+                <div class="col-lg-4" style="text-align: left">
+                    <b>Hạt Royal Canin Poodle Puppy Cho Chó Con Poodle</b>
+                </div>
+
+                <div class="col-lg-2">
+                    <b>174.000₫</b>
+                </div>
+
+                <div class="col-lg-2">
+                    1
+                </div>
+
+                <div class="col-lg-2">
+                    <b>174.000₫</b>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+<!--    <div class="col-lg-1"></div>-->
+    <div class="col-lg-4 px-4 mt-4">
+        <div style="text-align: center">
+            <div class="row">
+                <h3><b>TỔNG SỐ TIỀN</b></h3>
+                <hr style="height: 2px; color: black">
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <b>Tổng số tiền: </b>
+                </div>
+                <div class="col-lg-6">
+                    527.000đ
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <b>Phí vận chuyển: </b>
+                </div>
+                <div class="col-lg-6">
+                    30.000đ
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5><b>Tổng thanh toán: </b></h5>
+                </div>
+
+                <div class="col-lg-6">
+                    <b>557.000đ</b>
+                </div>
+                <div class="row">
+                        <button class="btn btn-outline-success">Đi tới thanh toán</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
+</body>
+</html>
