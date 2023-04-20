@@ -27,7 +27,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private Set<OrderDetail> orderDetailSet;
+    private Set<Cart> cartSet;
 
     public User() {
     }
@@ -120,11 +120,11 @@ public class User {
         this.userRoleSet = userRoleSet;
     }
 
-    public Set<OrderDetail> getOrderDetailSet() {
-        return orderDetailSet;
+    public Set<Cart> getCartSet() {
+        return cartSet;
     }
 
-    public void setOrderDetailSet(Set<OrderDetail> orderDetailSet) {
-        this.orderDetailSet = orderDetailSet;
+    public void setCartSet(Set<Cart> cartSet) {
+        this.cartSet = cartSet;
     }
 }

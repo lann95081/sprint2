@@ -1,5 +1,6 @@
 package com.example.be.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ public class Brand {
     private String brandName;
 
     @OneToMany(mappedBy = "brand")
-    @JsonIgnore
+    @JsonBackReference
     private Set<Product> productSet;
 
     public Brand() {

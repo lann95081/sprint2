@@ -3,30 +3,31 @@ package com.example.be.model;
 import javax.persistence.*;
 
 @Entity
-public class OrderDetail {
+public class CartDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_detail_id")
-    private Integer orderDetailId;
+    @Column(name = "cart_detail_id")
+    private Integer cartDetailId;
     private Integer amount;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    private Order order;
+    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
+    private Cart cart;
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
-    public OrderDetail() {
+    public CartDetail() {
     }
 
-    public Integer getOrderDetailId() {
-        return orderDetailId;
+
+    public Integer getCartDetailId() {
+        return cartDetailId;
     }
 
-    public void setOrderDetailId(Integer orderDetailId) {
-        this.orderDetailId = orderDetailId;
+    public void setCartDetailId(Integer cartDetailId) {
+        this.cartDetailId = cartDetailId;
     }
 
     public Integer getAmount() {
@@ -37,12 +38,12 @@ public class OrderDetail {
         this.amount = amount;
     }
 
-    public Order getOrder() {
-        return order;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Product getProduct() {
