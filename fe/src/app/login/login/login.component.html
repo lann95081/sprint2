@@ -2,19 +2,19 @@
   <img src="assets/images/cat.png" class="bg">
   <div class="login">
     <h2 class="text-center">Đăng nhập</h2>
-
+    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" >
     <div class="inputBox">
-      <input type="text" placeholder="Tên đăng nhập...">
+      <input type="text" formControlName="username" placeholder="Tên đăng nhập...">
     </div>
 
     <div class="inputBox">
-      <input type="password" placeholder="Mật khẩu">
+      <input type="password" placeholder="Mật khẩu" formControlName="password">
     </div>
 
     <div class="inputBox">
       <input type="submit" value="Đăng nhập" id="btn">
     </div>
-
+    </form>
     <div class="group">
       <a href="#">Quên mật khẩu</a>
       <a href="#">Đăng kí</a>

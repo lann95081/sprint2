@@ -13,6 +13,7 @@ public class User {
     private Integer userId;
     private String name;
     private String username;
+    @JsonIgnore
     private String password;
     private String phoneNumber;
     private String email;
