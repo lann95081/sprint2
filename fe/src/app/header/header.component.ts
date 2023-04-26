@@ -19,13 +19,12 @@ export class HeaderComponent implements OnInit {
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
               private accountService: UserService) {
-    this.shareService.getClickEvent().subscribe(() => {
-      this.loadHeader();
-    });
   }
 
   ngOnInit(): void {
-    this.loadHeader();
+    this.shareService.getClickEvent().subscribe(() => {
+      this.loadHeader();
+    });
   }
 
   loadHeader(): void {
@@ -45,8 +44,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut() {
-    this.isLoggedIn = false;
     this.tokenStorageService.signOut();
+    console.log('a' + this.isLoggedIn);
+    this.isLoggedIn = false;
     this.ngOnInit();
+    location.reload();
   }
 }

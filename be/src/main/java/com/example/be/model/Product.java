@@ -13,6 +13,7 @@ public class Product {
     private Integer productId;
     private String productName;
     private Double price;
+    @Column(columnDefinition = "text")
     private String description;
     private String img;
     private Integer amount;

@@ -9,7 +9,7 @@ public class BeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BeApplication.class, args);
-        String a = "ngocnan";
+        String a = "123456";
         String b = BCrypt.hashpw(a, BCrypt.gensalt(12));
         System.out.println(b);
         boolean c = BCrypt.checkpw(a,b);

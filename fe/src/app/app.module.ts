@@ -8,13 +8,15 @@ import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import {HttpClientModule} from '@angular/common/http';
 import {Router} from '@angular/router';
+import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    MainComponent
+    MainComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,80 +1,68 @@
-<div class=" row container-fluid m-0 p-0">
-  <nav class="navbar " style="background: navy">
-    <div class="col-lg-2">
-      <a href="/home.html?_ijt=n3sr7gprahp3eke38eqnsbbkh4&_ij_reload=RELOAD_ON_SAVE">
-        <img src="//cdn.shopify.com/s/files/1/0624/1746/9697/files/Logo_transparent_white_140x.png?v=1669526563"
-             loading="lazy" alt="Paddy Pet Shop"
-             style="width: 150px">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top px-4 px-lg-5 " style="background: navy">
+  <a routerLink="/" class="navbar-brand d-flex align-items-center">
+    <img src="//cdn.shopify.com/s/files/1/0624/1746/9697/files/Logo_transparent_white_140x.png?v=1669526563"
+         loading="lazy" alt="Paddy Pet Shop"
+         style="width: 150px">
+  </a>
+  <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <input class="form-control" style="display: inline; width: 450px; margin-left: 100px" type="search" aria-label="Search">
+    <button type="submit" class="btn btn-outline-light mx-2"><i class="fas fa-search"></i>
+    </button>
+    <div class="navbar-nav ms-auto p-4 p-lg-0" >
+      <a routerLink="/" class="nav-item nav-link mx-3"style="color: whitesmoke">
+        <b class="mx-4">Hotline</b>
+        <br>
+        <b>0374 41 41 42</b>
       </a>
-    </div>
-    <div class="col-lg-10">
-      <div class="row">
-        <div class="col-lg-4">
-          <form class="d-flex">
-            <input class="form-control" type="search" aria-label="Search">
-            <button type="submit" class="btn btn-outline-light">
-              <i class="fas fa-search"></i>
-            </button>
-          </form>
-          <div class="row mt-5" style="color: #fdfdfe">
-            <div class="col-md-6"><i class="fas fa-dog "></i></div>
-            <div class="col-md-6"><i class="fas fa-cat "></i></div>
+
+      <a routerLink="/" class="nav-item nav-link mx-3"style="color: whitesmoke">
+        <i class="fa fa-dog" style="color: whitesmoke"></i>
+      </a>
+
+      <a routerLink="/" class="nav-item nav-link mx-3"style="color: whitesmoke">
+        <i class="fa fa-cat" style="color: whitesmoke"></i>
+      </a>
+
+      <a routerLink="/" class="nav-item nav-link"style="color: whitesmoke">
+        <i class="fas fa-shopping-cart mx-4" style="color: whitesmoke"></i>
+      </a>
+
+      <div class="nav-item dropdown">
+        <div class="ps-4 d-none d-lg-block">
+          <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+            <ul class="navbar-nav flex-grow-1 d-flex justify-content-end">
+              <li class="nav-item d-flex align-items-center mg-left" [hidden]="!isLoggedIn" >
+                <b style="color: whitesmoke" class="text-center mt-3">{{name}}</b>
+              <li>
+                <button  (click)="logOut()" style="color: white" [hidden]="!isLoggedIn">
+<!--                  <img src="../../assets/images/nan.jpg" height="20"-->
+<!--                       width="20"/> Đăng xuất-->
+                  <i class="fa fa-sign-out-alt mx-4 mt-4" style="color: whitesmoke"></i>
+                </button>
+              </li>
+                <div [hidden]="isLoggedIn" style="margin-right: 45px" class="mt-2">
+                  <a routerLink="/login"><i class="fa fa-user mx-4" style="color: whitesmoke"></i></a>
+                  <br>
+                  <b style="color: whitesmoke">Đăng nhập</b>
+                </div>
+            </ul>
           </div>
-
-        </div>
-        <div class="col-lg-2" style="color: #fdfdfe">
-          <b>Hotline</b>
-          <br>
-          <b>0374 41 41 42</b>
-          <div class="mt-5" style="color: #fdfdfe"><a><b>Hàng mới về</b></a></div>
-        </div>
-        <div class="col-lg-2" style="color: #fdfdfe">
-          <a href="/"><i class="fas fa-heart" style="color: #ffffff"></i></a>
-          <br>
-          <b>Yêu thích</b>
-          <div class="mt-5" style="color: #fdfdfe"><a><b>Thương hiệu</b></a></div>
-        </div>
-        <div class="col-lg-2" style="color: #fdfdfe">
-          <a href="/"><i class="fas fa-shopping-cart" style="color: #ffffff"></i></a>
-          <br>
-          <b>Giỏ hàng</b>
-          <div class="mt-5" style="color: #fdfdfe"><a><b>News</b></a></div>
-        </div>
-        <div class="col-lg-2 nav-item dropdown" style="color: #fdfdfe">
-          <ul class="navbar-nav flex-grow-1 d-flex justify-content-end">
-            <li class="nav-item d-flex align-items-center mg-left" [hidden]="!isLoggedIn" *ngIf="name">
-              <b style="color: whitesmoke" class="text-center">{{name}}</b>
-              <b class="nav-link" [hidden]="isLoggedIn">Chưa đăng nhập</b>
-              <a href="" class="dropdown-item" (click)="logOut()">
-                <img src="../../assets/images/nan.jpg" height="20"
-                     width="20"/> Logout
-              </a>
-            </li>
-            <li class="nav-item">
-              <div class="dropdown user mg-left" style="color:white" [hidden]="!isLoggedIn">
-                <ul class="dropdown-menu">
-                  <li>
-                    </li>
-                </ul>
-              </div>
-              <div class="nav-item dropdown" [hidden]="isLoggedIn" style="margin-right: 45px">
-                <a class="nav-link dropdown-toggle text-light" routerLink="/login" role="button"
-                   data-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-user"></i>
-                </a>
-
-              </div>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
+<div class=" row container-fluid m-0 p-0">
   <div class="row my-2">
     <b style="text-align: center">Giảm đến 60% OFF tất cả sản phẩm*.
       <button class="btn btn-outline-warning rounded">Đăng kí ngay</button>
     </b>
   </div>
 </div>
+
+
 
