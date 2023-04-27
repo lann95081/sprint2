@@ -1,7 +1,19 @@
 <div class="container-fluid">
   <div class="row isotope-grid mx-4">
-    <b class="mb-3" style="text-align: center; color: #00074a; font-size: 30px">Danh sách sản phẩm</b>
-
+    <b class="mb-3" style="text-align: center; color: #00074a; font-size: 30px">Thức ăn cho Mèo</b>
+    <div class="row mb-4">
+      <div class="col-lg-5">
+        <input class="form-control mx-4" type="text" placeholder="Nhập tên sản phẩm..." aria-label="Search">
+      </div>
+      <div class="col-lg-5">
+        <input class="form-control mx-4" type="text" placeholder="Nhập tên thương hiệu..." aria-label="Search">
+      </div>
+      <div class="col-lg-2">
+        <button class="btn btn-light btn-outline-primary mx-4" >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
     <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women" *ngFor="let product of products">
       <!-- Block2 -->
       <div class="block2">
@@ -15,8 +27,10 @@
           </a>
         </div>
         <div class="block2-txt flex-w flex-t p-t-14">
-          <div class="block2-txt-child1 flex-col-l ">
-            <a href="product-detail.html" st class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+          <div class="block2-txt-child1 flex-col-l">
+            <a routerLink="" style="color: navy"><b>{{product.brand.brandName}}</b></a>
+            <br>
+            <a routerLink="" st class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
               {{product.productName}}
             </a>
             <span class="stext-105 cl3">

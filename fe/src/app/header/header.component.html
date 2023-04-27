@@ -22,7 +22,7 @@
         <i class="fa fa-dog" style="color: whitesmoke"></i>
       </a>
 
-      <a routerLink="/" class="nav-item nav-link mx-3"style="color: whitesmoke">
+      <a routerLink="/product" class="nav-item nav-link mx-3"style="color: whitesmoke">
         <i class="fa fa-cat" style="color: whitesmoke"></i>
       </a>
 
@@ -38,8 +38,6 @@
                 <b style="color: whitesmoke" class="text-center mt-3">{{name}}</b>
               <li>
                 <button  (click)="logOut()" style="color: white" [hidden]="!isLoggedIn">
-<!--                  <img src="../../assets/images/nan.jpg" height="20"-->
-<!--                       width="20"/> Đăng xuất-->
                   <i class="fa fa-sign-out-alt mx-4 mt-4" style="color: whitesmoke"></i>
                 </button>
               </li>
