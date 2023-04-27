@@ -9,6 +9,8 @@ import { MainComponent } from './main/main.component';
 import {HttpClientModule} from '@angular/common/http';
 import {Router} from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { ProductListComponent } from './product-list/product-list.component';
     HeaderComponent,
     FooterComponent,
     MainComponent,
-    ProductListComponent
+    ProductListComponent,
+    ProductDetailComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

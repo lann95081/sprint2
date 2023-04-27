@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(module => module.LoginModule)
   },
   {
-    path: 'product',
+    path: 'product/list',
     component: ProductListComponent
   }
 ];

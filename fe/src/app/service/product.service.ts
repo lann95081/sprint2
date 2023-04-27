@@ -14,4 +14,12 @@ export class ProductService {
   findAll(): Observable<Product[]> {
     return this.httpClient.get<Product[]>('http://localhost:8080/api/product');
   }
+
+  findAllByNameSearch(nameSearch: string): Observable<Product[]> {
+    return this.httpClient.get<Product[]>('http://localhost:8080/api/product/list?nameSearch=' + nameSearch);
+  }
+
+  findAllByNameSearchAndBrand(nameSearch: string, brandId: string): Observable<Product[]> {
+    return this.httpClient.get<Product[]>('http://localhost:8080/api/product/list?nameSearch=' + nameSearch + '&brandId=' + brandId);
+  }
 }
