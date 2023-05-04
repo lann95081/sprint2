@@ -20,4 +20,9 @@ public class UserService implements IUserService{
     public boolean checkOldPassword(String oldPassword, String password) {
         return BCrypt.checkpw(oldPassword,password);
     }
+
+    @Override
+    public User findById(Integer userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
 }

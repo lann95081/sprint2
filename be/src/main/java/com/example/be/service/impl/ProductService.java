@@ -16,6 +16,7 @@ public class ProductService implements IProductService {
     @Autowired
     private IProductRepository iProductRepository;
 
+
     @Override
     public List<Product> findAll() {
         return iProductRepository.findAll();
@@ -23,11 +24,16 @@ public class ProductService implements IProductService {
 
     @Override
     public Page<Product> findAllByName(String nameSearch, Pageable pageable) {
-        return iProductRepository.findAllByName(nameSearch,pageable);
+        return iProductRepository.findAllByName(nameSearch, pageable);
     }
 
     @Override
-    public Page<Product> findAllByNameAndBrand(String nameSearch, Integer brandId, Pageable pageable) {
+    public Page<Product> findAllByNameAndBrand(String nameSearch, int brandId, Pageable pageable) {
         return iProductRepository.findAllByNameAndBrand(nameSearch, brandId, pageable);
+    }
+
+    @Override
+    public Product findById(Integer productId) {
+        return iProductRepository.findById(productId).orElse(null);
     }
 }

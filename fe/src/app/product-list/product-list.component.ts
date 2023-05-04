@@ -3,6 +3,10 @@ import {Product} from '../model/product';
 import {ProductService} from '../service/product.service';
 import {BrandService} from '../service/brand.service';
 import {Brand} from '../model/brand';
+import {CartDetailService} from '../service/cart-detail.service';
+import {TokenStorageService} from '../service/token-storage.service';
+import {UserService} from '../service/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-list',
@@ -13,31 +17,42 @@ export class ProductListComponent implements OnInit {
   products: Product[];
   nameSearch: '';
   brands: Brand[];
-  brandId: '0';
-
+  brandId = '0';
+  totalElement = 4;
+  maxElement = 0;
+  flagHidden = true;
+  flagMore = false;
+  username: string;
+  userId: number;
 
   constructor(private productService: ProductService,
-              private brandService: BrandService) {
+              private brandService: BrandService,
+              private cartDetailService: CartDetailService,
+              private token: TokenStorageService,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.findAll();
+    this.findAll(this.totalElement);
     this.findAllBrand();
+    this.getUser();
   }
 
-  findAll() {
+  findAll(totalElement: number) {
+    if (this.nameSearch === undefined) {
+      this.nameSearch = '';
+    }
     if (this.brandId === undefined) {
       this.brandId = '0';
-      if (this.nameSearch === undefined) {
-        this.nameSearch = '';
-      }
-      this.productService.findAllByNameSearch(this.nameSearch).subscribe(data => {
+
+      this.productService.findAllByNameSearch(this.nameSearch, this.totalElement).subscribe(data => {
         this.products = data.content;
+        this.maxElement = data.totalElements;
       });
     } else {
-      this.productService.findAllByNameSearchAndBrand(this.nameSearch, this.brandId).subscribe(data => {
+      this.productService.findAllByNameSearchAndBrand(this.nameSearch, this.brandId, this.totalElement).subscribe(data => {
         this.products = data.content;
-        console.log(this.brandId + 'aaa');
+        this.maxElement = data.totalElements;
       });
     }
   }
@@ -49,6 +64,49 @@ export class ProductListComponent implements OnInit {
   findAllBrand() {
     this.brandService.findAll().subscribe(data => {
       this.brands = data;
+    });
+  }
+
+  hidden() {
+    if (this.totalElement <= 4) {
+      this.flagMore = false;
+      this.flagHidden = true;
+    } else {
+      this.totalElement -= 4;
+      this.flagHidden = this.totalElement === 4;
+      this.flagMore = false;
+    }
+    this.findAll(this.totalElement);
+  }
+
+  loadMore() {
+    if (this.totalElement < this.maxElement) {
+      this.flagMore = false;
+      this.totalElement += 4;
+      this.flagHidden = false;
+    }
+    if (this.totalElement > this.maxElement) {
+      this.flagMore = true;
+      this.flagHidden = false;
+    }
+    this.findAll(this.totalElement);
+  }
+
+  addCartDetail(productId: number) {
+    this.cartDetailService.addCartDetail(this.userId, productId).subscribe(()=>{
+      Swal.fire({
+        title: 'Thông báo!',
+        text: 'Thêm mới giỏ hàng thành công',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+    });
+  }
+
+  getUser() {
+    this.username = this.token.getUser()?.username;
+    this.userService.findUserEmail(this.username).subscribe(next => {
+      this.userId = next?.userId;
     });
   }
 }

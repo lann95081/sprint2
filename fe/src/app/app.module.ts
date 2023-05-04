@@ -11,6 +11,9 @@ import {Router} from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import {FormsModule} from '@angular/forms';
+import { CartComponent } from './cart/cart.component';
+import { CartDetailComponent } from './cart-detail/cart-detail.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import {FormsModule} from '@angular/forms';
     FooterComponent,
     MainComponent,
     ProductListComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    CartComponent,
+    CartDetailComponent,
+    ErrorPageComponent
   ],
     imports: [
         BrowserModule,

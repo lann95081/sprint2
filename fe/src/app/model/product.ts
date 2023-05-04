@@ -5,7 +5,7 @@ export interface Product {
   productId?: number;
   productName?: string;
   price?: number;
-  descriptions?: string;
+  description?: string;
   img?: string;
   amount?: number;
   deleteStatus?: boolean;

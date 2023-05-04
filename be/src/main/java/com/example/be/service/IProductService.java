@@ -7,9 +7,12 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IProductService {
+
     List<Product> findAll();
 
     Page<Product> findAllByName(String nameSearch, Pageable pageable);
 
-    Page<Product> findAllByNameAndBrand(String nameSearch, Integer brandId, Pageable pageable);
+    Page<Product> findAllByNameAndBrand(String nameSearch, int brandId, Pageable pageable);
+
+    Product findById(Integer productId);
 }
