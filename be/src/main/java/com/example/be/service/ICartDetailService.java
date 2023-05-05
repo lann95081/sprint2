@@ -6,7 +6,11 @@ import com.example.be.model.CartDetail;
 import java.util.List;
 
 public interface ICartDetailService {
-    CartDetail save (CartDetail cartDetail);
+    CartDetail save(CartDetail cartDetail);
 
     List<ICartDetailDto> findAll(Integer userId);
+
+    void updateAmount(Integer amount, Integer cartDetailId);
+
+    CartDetail findByCartDetailId(Integer cartDetailId);
 }

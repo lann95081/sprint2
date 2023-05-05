@@ -7,13 +7,12 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import {HttpClientModule} from '@angular/common/http';
-import {Router} from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import {FormsModule} from '@angular/forms';
 import { CartComponent } from './cart/cart.component';
-import { CartDetailComponent } from './cart-detail/cart-detail.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { ReceiptComponent } from './receipt/receipt.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +23,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     ProductListComponent,
     ProductDetailComponent,
     CartComponent,
-    CartDetailComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    ReceiptComponent
   ],
     imports: [
         BrowserModule,

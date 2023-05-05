@@ -24,4 +24,14 @@ public class CartDetailService implements ICartDetailService {
         return iCardDetailRepository.findAllCartDetail(userId);
     }
 
+    @Override
+    public void updateAmount(Integer amount, Integer cartDetailId) {
+        iCardDetailRepository.updateAmount(amount, cartDetailId);
+    }
+
+    @Override
+    public CartDetail findByCartDetailId(Integer cartDetailId) {
+        return iCardDetailRepository.findById(cartDetailId).orElse(null);
+    }
+
 }

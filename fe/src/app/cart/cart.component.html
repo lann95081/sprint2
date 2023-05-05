@@ -53,44 +53,16 @@
 
           <div class="col-lg-2">
            <span>
-               <button class="minus btn-outline-light" style="color: black" (click)="minus()">-</button>
-                <b class="mx-1">{{num}}</b>
-               <button class="plus btn-outline-light" style="color: black" (click)="plus()">+</button>
+               <button class="minus btn-outline-light" style="color: black" (click)="minus(cart.cartDetailId)">-</button>
+                <b class="mx-1">{{cart.amount}}</b>
+               <button class="plus btn-outline-light" style="color: black" (click)="plus(cart.cartDetailId)">+</button>
             </span>
           </div>
 
           <div class="col-lg-2">
-            <b>{{total}}</b>
+            <b>{{cart.price*cart.amount}}</b>
           </div>
         </div>
-
-<!--        <div class="row my-3">-->
-<!--          <div class="col-lg-2">-->
-<!--            <img-->
-<!--              src="https://cdn.shopify.com/s/files/1/0624/1746/9697/products/hat-royal-canin-indoor-cho-meo-truong-thanh-nuoi-trong-nha-paddy-2.jpg?v=1661397007"-->
-<!--              style="width: 150px; height: 150px;">-->
-<!--          </div>-->
-
-<!--          <div class="col-lg-4" style="text-align: left">-->
-<!--            <b>Hạt Royal Canin Indoor Cho Mèo Trưởng Thành Nuôi Trong Nhà</b>-->
-<!--          </div>-->
-
-<!--          <div class="col-lg-2">-->
-<!--            <b>120.000₫</b>-->
-<!--          </div>-->
-
-<!--          <div class="col-lg-2">-->
-<!--           <span>-->
-<!--               <button class="minus btn-outline-light" style="color: black">-</button>-->
-<!--                <b class="mx-1">2</b>-->
-<!--               <button class="plus btn-outline-light" style="color: black">+</button>-->
-<!--            </span>-->
-<!--          </div>-->
-
-<!--          <div class="col-lg-2">-->
-<!--            <b>120.000₫</b>-->
-<!--          </div>-->
-<!--        </div>-->
       </div>
     </div>
 
@@ -130,7 +102,7 @@
             <b>557.000đ</b>
           </div>
           <div class="row mt-4">
-            <button class="btn btn-outline-success">Đi tới thanh toán</button>
+            <button class="btn btn-outline-success" routerLink="/paypal">Đi tới thanh toán</button>
           </div>
         </div>
 

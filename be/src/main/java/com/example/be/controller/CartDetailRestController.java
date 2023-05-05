@@ -66,4 +66,16 @@ public class CartDetailRestController {
 
         return new ResponseEntity<>(cartDetail1, HttpStatus.CREATED);
     }
+
+    @GetMapping("/updateAmount/{amount}/{cartDetailId}")
+    public ResponseEntity<?> updateAmount(@PathVariable Integer amount, @PathVariable Integer cartDetailId) {
+        iCartDetailService.updateAmount(amount, cartDetailId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+//    @GetMapping("/{c}")
+//    public ResponseEntity<?> findByCartDetailId(@PathVariable Integer cartDetailId) {
+//        iCartDetailService.findByCartDetailId(cartDetailId);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }

@@ -13,9 +13,10 @@ export class CartComponent implements OnInit {
   cartDetailDtos: ICartDetailDto[];
   username: string;
   userId: number;
-  num = 1;
+  sum = 0;
   price: number;
-  total: number;
+  total = 0;
+  ship = 30;
 
   constructor(private cart: CartDetailService,
               private token: TokenStorageService,
@@ -23,25 +24,6 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUser();
-  }
-
-  minus() {
-    if (this.num <= 1) {
-      this.num = 1;
-    } else {
-      this.num--;
-    }
-    this.total = this.num * this.price;
-  }
-
-  plus() {
-    this.num++;
-    this.total = this.num * this.price;
-  }
-
-
-  getUser() {
     this.username = this.token.getUser()?.username;
     this.userService.findUserEmail(this.username).subscribe(next => {
       this.userId = next.userId;
@@ -49,10 +31,53 @@ export class CartComponent implements OnInit {
     });
   }
 
+  minus(cartDetailId: number) {
+    console.log(this.cartDetailDtos);
+    for (const items of this.cartDetailDtos) {
+      if (items.cartDetailId === cartDetailId) {
+        if (items.amount <= 1) {
+          break;
+        } else {
+          items.amount--;
+          console.log(items.amount + 'a');
+          this.cart.updateAmount(items.amount, cartDetailId).subscribe(() => {
+          });
+          this.sum -= items.price;
+          this.total = this.sum + this.ship;
+          break;
+        }
+      }
+    }
+  }
+
+  plus(cartDetailId: number) {
+    console.log(this.cartDetailDtos.length + 'ssss');
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.cartDetailDtos.length; i++) {
+      if (this.cartDetailDtos[i].cartDetailId === cartDetailId) {
+        this.cartDetailDtos[i].amount++;
+        console.log(this.cartDetailDtos[i].amount++ + 'aa');
+        this.cart.updateAmount(this.cartDetailDtos[i].amount, cartDetailId).subscribe(() => {
+        }, error => {
+        });
+        break;
+      }
+      this.sum += this.cartDetailDtos[i].price;
+      this.total = this.sum + this.ship;
+    }
+  }
+
+  getTotal() {
+    for (const element of this.cartDetailDtos) {
+      this.sum += element.amount * element.price;
+    }
+    this.total = this.sum + this.ship;
+  }
+
   getAll(userId: number) {
     this.cart.findAllCart(userId).subscribe(data => {
-      // @ts-ignore
       this.cartDetailDtos = data;
+
     });
   }
 

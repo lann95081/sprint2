@@ -7,6 +7,7 @@ import {AdminGuard} from './security/admin.guard';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {CartComponent} from './cart/cart.component';
+import {ReceiptComponent} from './receipt/receipt.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent
+  },
+  {
+    path: 'paypal',
+    component: ReceiptComponent
   }
 ];
 
