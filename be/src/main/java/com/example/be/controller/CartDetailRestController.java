@@ -73,9 +73,9 @@ public class CartDetailRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/{c}")
-//    public ResponseEntity<?> findByCartDetailId(@PathVariable Integer cartDetailId) {
-//        iCartDetailService.findByCartDetailId(cartDetailId);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @DeleteMapping("/{cartId}/{productId}")
+    public ResponseEntity<?> delete(@PathVariable Integer cartId, @PathVariable Integer productId){
+        iCartDetailService.delete(cartId, productId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

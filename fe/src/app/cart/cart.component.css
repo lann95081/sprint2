@@ -1,5 +1,5 @@
 body {
-  background: white;
+  /*background: white;*/
   padding: 50px;
   overflow-x: hidden;
 }
@@ -15,16 +15,15 @@ a {
   transition: color .2s linear;
 }
 
-/*.minus {*/
-/*  background-color: white;*/
-/*}*/
+.minus {
+  background-color: white;
+}
 
-/*.plus {*/
-/*  background-color: white;*/
-/*}*/
+.plus {
+  background-color: white;
+}
 
 button {
-  border: none;
   color: black;
   padding: 10px 20px;
   text-align: center;

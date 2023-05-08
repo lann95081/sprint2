@@ -3,6 +3,8 @@ import {CartDetailService} from '../service/cart-detail.service';
 import {TokenStorageService} from '../service/token-storage.service';
 import {UserService} from '../service/user.service';
 import {ICartDetailDto} from '../dto/icart-detail-dto';
+import {ProductService} from '../service/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart',
@@ -16,18 +18,23 @@ export class CartComponent implements OnInit {
   sum = 0;
   price: number;
   total = 0;
-  ship = 30;
+  ship = 30000;
 
   constructor(private cart: CartDetailService,
               private token: TokenStorageService,
-              private userService: UserService) {
+              private userService: UserService,
+              private productService: ProductService) {
   }
 
   ngOnInit(): void {
     this.username = this.token.getUser()?.username;
     this.userService.findUserEmail(this.username).subscribe(next => {
       this.userId = next.userId;
-      this.getAll(this.userId);
+      this.cart.findAllCart(this.userId).subscribe(data => {
+        this.cartDetailDtos = data;
+        this.getTotal();
+
+      });
     });
   }
 
@@ -44,6 +51,7 @@ export class CartComponent implements OnInit {
           });
           this.sum -= items.price;
           this.total = this.sum + this.ship;
+          console.log(this.total);
           break;
         }
       }
@@ -51,19 +59,18 @@ export class CartComponent implements OnInit {
   }
 
   plus(cartDetailId: number) {
-    console.log(this.cartDetailDtos.length + 'ssss');
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.cartDetailDtos.length; i++) {
       if (this.cartDetailDtos[i].cartDetailId === cartDetailId) {
         this.cartDetailDtos[i].amount++;
-        console.log(this.cartDetailDtos[i].amount++ + 'aa');
         this.cart.updateAmount(this.cartDetailDtos[i].amount, cartDetailId).subscribe(() => {
         }, error => {
         });
+
+        this.sum += this.cartDetailDtos[i].price;
+        this.total = this.sum + this.ship;
         break;
       }
-      this.sum += this.cartDetailDtos[i].price;
-      this.total = this.sum + this.ship;
     }
   }
 
@@ -78,6 +85,27 @@ export class CartComponent implements OnInit {
     this.cart.findAllCart(userId).subscribe(data => {
       this.cartDetailDtos = data;
 
+    });
+  }
+
+  delete(cartId: number, productId: number, productName: string, cartDetailId: number) {
+    this.cart.delete(cartId, productId).subscribe(() => {
+      Swal.fire({
+        title: 'Thông báo!',
+        text: 'Bạn vừa xoá mặt hàng ' + productName,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      this.cart.findAllCart(this.userId).subscribe(item => {
+        this.cartDetailDtos = item;
+      });
+      for (const item of this.cartDetailDtos) {
+        if (item.cartDetailId === cartDetailId) {
+          this.sum -= item.price * item.amount;
+          this.total = this.sum + this.ship;
+          break;
+        }
+      }
     });
   }
 

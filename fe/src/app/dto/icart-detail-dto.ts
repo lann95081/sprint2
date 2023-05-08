@@ -5,4 +5,5 @@ export interface ICartDetailDto {
   price: number;
   img: string;
   amount: number;
+  productId: number;
 }

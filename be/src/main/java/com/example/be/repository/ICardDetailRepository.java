@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public interface ICardDetailRepository extends JpaRepository<CartDetail, Integer> {
 
-    @Query(value = "select ca.cart_id as cartId, c.cart_detail_id as cartDetailId, p.product_name as productName," +
+    @Query(value = "select ca.cart_id as cartId, c.cart_detail_id as cartDetailId, p.product_name as productName, p.product_id as productId," +
             " p.price as price, p.img as img, c.amount as amount, ca.user_id as userId from product as p join cart_detail as c on c.product_id = p.product_id join cart as ca on ca.cart_id = c.cart_id where ca.user_id = :id", nativeQuery = true)
     List<ICartDetailDto> findAllCartDetail(@Param("id") Integer userId);
 
@@ -21,4 +21,6 @@ public interface ICardDetailRepository extends JpaRepository<CartDetail, Integer
     @Query(value = "update cart_detail set amount = :amount where cart_detail_id = :cartDetailId", nativeQuery = true)
     void updateAmount(@Param("amount") Integer amount,
                       @Param("cartDetailId") Integer cartDetailId);
+
+    void deleteCartDetailByCart_CartIdAndProduct_ProductId(Integer cartId, Integer productId);
 }

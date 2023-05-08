@@ -14,4 +14,5 @@ public interface ICartDetailDto {
     Integer getAmount();
 
     Integer getUserId();
+    Integer getProductId();
 }

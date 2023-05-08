@@ -34,4 +34,9 @@ public class CartDetailService implements ICartDetailService {
         return iCardDetailRepository.findById(cartDetailId).orElse(null);
     }
 
+    @Override
+    public void delete(Integer cartId, Integer productId) {
+        iCardDetailRepository.deleteCartDetailByCart_CartIdAndProduct_ProductId(cartId, productId);
+    }
+
 }

@@ -1,9 +1,12 @@
 <div class="container-fluid">
   <a href="" style="color: #9e9e9e">Trang chủ ></a> <span style="color: #9e9e9e">Giỏ hàng của bạn</span>
   <div class="row my-2" style="text-align: center">
-    <h3><b style="color: navy">GIỎ HÀNG CỦA BẠN</b></h3>
+    <h3><b style="color: #00074a;font-size: 30px">GIỎ HÀNG CỦA BẠN</b></h3>
   </div>
 
+  <div class="row" *ngIf="cartDetailDtos?.length===0">
+    <h3 class="text-center text-danger">Danh sách giỏ hàng trống</h3>
+  </div>
 
   <div class="row mx-4">
     <div class="col-lg-8">
@@ -16,51 +19,60 @@
         </div>
         <div class="col-lg-6"></div>
       </div>
-      <div style="text-align: center" class="row">
-        <div class="row my-3 py-3" style="background: #eeeeee">
+      <div class="row">
+        <div class="row my-3 py-3" style="background: #eeeeee; text-align: center">
           <div class="col-lg-2">
             <b>SẢN PHẨM</b>
           </div>
 
-          <div class="col-lg-4"></div>
+          <div class="col-lg-3">
+          </div>
 
-          <div class="col-lg-2">
+          <div class="col-lg-1">
             <b>GIÁ</b>
           </div>
 
-          <div class="col-lg-2">
+          <div class="col-lg-4">
             <b>SỐ LƯỢNG</b>
           </div>
 
-          <div class="col-lg-2">
+          <div class="col-lg-1">
             <b>TỔNG</b>
+          </div>
+
+          <div class="col-lg-1">
           </div>
         </div>
 
-        <div class="row my-3 mt-3" *ngFor="let cart of cartDetailDtos">
+        <div class="row mt-2" *ngFor="let cart of cartDetailDtos">
           <div class="col-lg-2">
             <img src="{{cart.img}}"
-              style="width: 150px; height: 150px;">
+                 style="width: 150px; height: 150px">
           </div>
 
-          <div class="col-lg-4" style="text-align: left">
+          <div class="col-lg-3 mt-3" style="text-align: left">
             <b>{{cart.productName}}</b>
           </div>
 
-          <div class="col-lg-2">
+          <div class="col-lg-1 mt-3">
             <b>{{cart.price}}đ</b>
           </div>
 
-          <div class="col-lg-2">
+          <div class="col-lg-4" style="text-align: center">
            <span>
-               <button class="minus btn-outline-light" style="color: black" (click)="minus(cart.cartDetailId)">-</button>
+               <button class="minus btn-outline-light" style="color: black"
+                       (click)="minus(cart.cartDetailId)">-</button>
                 <b class="mx-1">{{cart.amount}}</b>
                <button class="plus btn-outline-light" style="color: black" (click)="plus(cart.cartDetailId)">+</button>
             </span>
           </div>
 
-          <div class="col-lg-2">
-            <b>{{cart.price*cart.amount}}</b>
+          <div class="col-lg-1 mt-3">
+            <b>{{cart.price * cart.amount}}</b>
+          </div>
+
+          <div class="col-lg-1">
+            <button (click)="delete( cart.cartId, cart.productId, cart.productName, cart.cartDetailId)"><i class="fas fa-times"></i></button>
           </div>
         </div>
       </div>
@@ -78,7 +90,7 @@
             <b>Tổng số tiền: </b>
           </div>
           <div class="col-lg-6">
-            527.000đ
+            {{sum}}đ
           </div>
         </div>
 
@@ -87,7 +99,7 @@
             <b>Phí vận chuyển: </b>
           </div>
           <div class="col-lg-6">
-            30.000đ
+            {{ship}}đ
           </div>
         </div>
 
@@ -99,7 +111,7 @@
           </div>
 
           <div class="col-lg-6">
-            <b>557.000đ</b>
+            <b>{{total}}đ</b>
           </div>
           <div class="row mt-4">
             <button class="btn btn-outline-success" routerLink="/paypal">Đi tới thanh toán</button>

@@ -3,6 +3,7 @@ import {ShareService} from '../service/share.service';
 import {TokenStorageService} from '../service/token-storage.service';
 import Swal from 'sweetalert2';
 import {UserService} from '../service/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
-              private accountService: UserService) {
+              private accountService: UserService,
+              private router: Router) {
     this.loadHeader();
   }
 
@@ -26,15 +28,18 @@ export class HeaderComponent implements OnInit {
     this.shareService.getClickEvent().subscribe(() => {
       this.loadHeader();
     });
+    this.loadHeader();
   }
 
   loadHeader(): void {
     if (this.tokenStorageService.getToken()) {
       this.role = this.tokenStorageService.getUser().roles[0];
       this.username = this.tokenStorageService.getUser().username;
+      this.isLoggedIn = this.username != null;
+      this.findNameUser();
+    } else {
+      this.isLoggedIn = false;
     }
-    this.isLoggedIn = this.username != null;
-    this.findNameUser();
   }
 
   findNameUser(): void {
@@ -45,8 +50,6 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.tokenStorageService.signOut();
-    this.isLoggedIn = false;
     this.ngOnInit();
-    location.reload();
   }
 }

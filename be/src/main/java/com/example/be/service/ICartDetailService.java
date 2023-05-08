@@ -13,4 +13,6 @@ public interface ICartDetailService {
     void updateAmount(Integer amount, Integer cartDetailId);
 
     CartDetail findByCartDetailId(Integer cartDetailId);
+
+    void delete(Integer cartId, Integer productId);
 }
