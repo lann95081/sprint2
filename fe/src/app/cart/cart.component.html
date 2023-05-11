@@ -1,25 +1,12 @@
 <div class="container-fluid">
-  <a href="" style="color: #9e9e9e">Trang chủ ></a> <span style="color: #9e9e9e">Giỏ hàng của bạn</span>
   <div class="row my-2" style="text-align: center">
     <h3><b style="color: #00074a;font-size: 30px">GIỎ HÀNG CỦA BẠN</b></h3>
   </div>
 
-  <div class="row" *ngIf="cartDetailDtos?.length===0">
-    <h3 class="text-center text-danger">Danh sách giỏ hàng trống</h3>
-  </div>
-
   <div class="row mx-4">
     <div class="col-lg-8">
-      <div class="row">
-        <div class="col-lg-6">
-          <button class="btn btn-outline-primary">
-            <a routerLink="product/list">Tiếp tục mua hàng </a>
-          </button>
 
-        </div>
-        <div class="col-lg-6"></div>
-      </div>
-      <div class="row">
+      <div class="row" *ngIf="cartDetailDtos?.length > 0;else elseBlock">
         <div class="row my-3 py-3" style="background: #eeeeee; text-align: center">
           <div class="col-lg-2">
             <b>SẢN PHẨM</b>
@@ -72,10 +59,21 @@
           </div>
 
           <div class="col-lg-1">
-            <button (click)="delete( cart.cartId, cart.productId, cart.productName, cart.cartDetailId)"><i class="fas fa-times"></i></button>
+            <button (click)="delete( cart.cartId, cart.productId, cart.productName, cart.cartDetailId)"><i
+              class="fas fa-times"></i></button>
           </div>
         </div>
       </div>
+      <ng-template #elseBlock>
+        <div class="text-center m-5">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/shoe-world-7d7d1.appspot.com/o/empty-cart.webp?alt=media&token=3c67f03d-3cf5-4772-8ec2-6e1858ca88e5"
+            height="210" width="300"/>
+        </div>
+        <button class="btn btn-outline-dark" style="margin-left: 38%; margin-top: 3%" routerLink="/product/list">Trở lại
+          trang mua sắm
+        </button>
+      </ng-template>
     </div>
 
     <div class="col-lg-4 px-4 mt-4">
@@ -114,7 +112,7 @@
             <b>{{total}}đ</b>
           </div>
           <div class="row mt-4">
-            <button class="btn btn-outline-success" routerLink="/paypal">Đi tới thanh toán</button>
+            <button class="btn btn-outline-dark" routerLink="/paypal">Đi tới thanh toán</button>
           </div>
         </div>
 

@@ -8,6 +8,7 @@ import {ProductDetailComponent} from './product-detail/product-detail.component'
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {CartComponent} from './cart/cart.component';
 import {ReceiptComponent} from './receipt/receipt.component';
+import {PurchaseHistoryComponent} from './purchase-history/purchase-history.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'paypal',
     component: ReceiptComponent
+  },
+  {
+    path: 'history',
+    component: PurchaseHistoryComponent
   }
 ];
 

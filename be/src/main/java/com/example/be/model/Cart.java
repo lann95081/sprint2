@@ -11,17 +11,17 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private Integer cartId;
-    private String code;
+    @Column(columnDefinition = "DATE")
     private String date;
-    private Double total;
 
     @OneToMany(mappedBy = "cart")
     @JsonBackReference
-    private Set<CartDetail> orderDetailSet;
+    private Set<CartDetail> cartDetailSet;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
+    private boolean payStatus;
 
     public Cart() {
     }
@@ -34,14 +34,6 @@ public class Cart {
         this.cartId = cartId;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getDate() {
         return date;
     }
@@ -50,20 +42,12 @@ public class Cart {
         this.date = date;
     }
 
-    public Double getTotal() {
-        return total;
+    public Set<CartDetail> getCartDetailSet() {
+        return cartDetailSet;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public Set<CartDetail> getOrderDetailSet() {
-        return orderDetailSet;
-    }
-
-    public void setOrderDetailSet(Set<CartDetail> orderDetailSet) {
-        this.orderDetailSet = orderDetailSet;
+    public void setCartDetailSet(Set<CartDetail> cartDetailSet) {
+        this.cartDetailSet = cartDetailSet;
     }
 
     public User getUser() {
@@ -72,5 +56,13 @@ public class Cart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(boolean payStatus) {
+        this.payStatus = payStatus;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.be.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -22,13 +23,18 @@ public class User {
     private boolean gender;
     private boolean deleteStatus;
 
+
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
+    @JsonBackReference
     private Set<UserRole> userRoleSet;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
+    @JsonBackReference
     private Set<Cart> cartSet;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private Set<PurchaseHistory> purchaseHistorySet;
 
     public User() {
     }
@@ -127,5 +133,13 @@ public class User {
 
     public void setCartSet(Set<Cart> cartSet) {
         this.cartSet = cartSet;
+    }
+
+    public Set<PurchaseHistory> getPurchaseHistorySet() {
+        return purchaseHistorySet;
+    }
+
+    public void setPurchaseHistorySet(Set<PurchaseHistory> purchaseHistorySet) {
+        this.purchaseHistorySet = purchaseHistorySet;
     }
 }

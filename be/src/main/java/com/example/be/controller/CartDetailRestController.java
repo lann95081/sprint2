@@ -1,14 +1,8 @@
 package com.example.be.controller;
 
 import com.example.be.dto.ICartDetailDto;
-import com.example.be.model.Cart;
-import com.example.be.model.CartDetail;
-import com.example.be.model.Product;
-import com.example.be.model.User;
-import com.example.be.service.ICartDetailService;
-import com.example.be.service.ICartService;
-import com.example.be.service.IProductService;
-import com.example.be.service.IUserService;
+import com.example.be.model.*;
+import com.example.be.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 @RestController
 @CrossOrigin("*")
@@ -34,6 +30,9 @@ public class CartDetailRestController {
     @Autowired
     private ICartDetailService iCartDetailService;
 
+    @Autowired
+    private IPurchaseService iPurchaseService;
+
     @GetMapping("/{userId}")
     public ResponseEntity<List<ICartDetailDto>> findAllCart(@PathVariable Integer userId) {
         List<ICartDetailDto> cartDetailDtoList = iCartDetailService.findAll(userId);
@@ -45,9 +44,21 @@ public class CartDetailRestController {
         }
     }
 
-    @GetMapping("/addCart/{userId}/{productId}")
+    @GetMapping("/addCart/{userId}/{productId}/{amount}")
     public ResponseEntity<?> addToCart(@PathVariable Integer userId,
-                                       @PathVariable Integer productId) {
+                                       @PathVariable Integer productId,
+                                       @PathVariable Integer amount) {
+
+        List<ICartDetailDto> cartDetailDtoList = iCartDetailService.findAll(userId);
+        for (ICartDetailDto cartDetailDto : cartDetailDtoList) {
+            if (Objects.equals(cartDetailDto.getProductId(), productId)) {
+                CartDetail cartDetail = iCartDetailService.findByCartDetailId(cartDetailDto.getCartDetailId());
+                Integer amount1 = cartDetail.getAmount() + amount;
+                cartDetail.setAmount(amount1);
+                iCartDetailService.save(cartDetail);
+                return new ResponseEntity<>(cartDetail, HttpStatus.OK);
+            }
+        }
 
         User user = iUserService.findById(userId);
         Date date = new Date();
@@ -74,8 +85,50 @@ public class CartDetailRestController {
     }
 
     @DeleteMapping("/{cartId}/{productId}")
-    public ResponseEntity<?> delete(@PathVariable Integer cartId, @PathVariable Integer productId){
+    public ResponseEntity<?> delete(@PathVariable Integer cartId, @PathVariable Integer productId) {
         iCartDetailService.delete(cartId, productId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/deleteAll/{userId}")
+    public ResponseEntity<?> deleteAll(@PathVariable Integer userId) {
+        iCartDetailService.deleteAllCartDetail(userId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/history/{userId}")
+    public ResponseEntity<?> getAllPurchase(@PathVariable Integer userId) {
+        List<PurchaseHistory> purchaseHistoryList = iPurchaseService.findAllByUserId(userId);
+        return new ResponseEntity<>(purchaseHistoryList, HttpStatus.OK);
+    }
+
+    @GetMapping("save/{userId}/{total}")
+    public ResponseEntity<?> saveHistory(@PathVariable Integer userId,
+                                         @PathVariable Integer total) {
+        List<Integer> cart = iCartDetailService.findAllCartDetailByUserIdAndDeleteStatus(userId);
+        User user = iUserService.findById(userId);
+        PurchaseHistory purchaseHistory = new PurchaseHistory();
+        Random random = new Random();
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormat.format(date);
+        purchaseHistory.setOrderDate(simpleDateFormat.format(date));
+        purchaseHistory.setCodeBill(String.valueOf(random.nextInt(90000) + 10000));
+        purchaseHistory.setUser(user);
+        purchaseHistory.setTotal(Double.valueOf(total));
+        iPurchaseService.save(purchaseHistory);
+        for (Integer in : cart) {
+            CartDetail cartDetail = iCartDetailService.findCartDetailByCartDetailIdAndDeleteStatus(in);
+            cartDetail.setPurchaseHistory(purchaseHistory);
+            iCartDetailService.save(cartDetail);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/setCart/{userId}")
+    public ResponseEntity<?> setCart(@PathVariable Integer userId) {
+        iCartDetailService.setCart(userId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

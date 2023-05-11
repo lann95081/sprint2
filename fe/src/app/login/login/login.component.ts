@@ -13,7 +13,6 @@ import {ShareService} from '../../service/share.service';
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   username = String;
-  errorMessage = '';
   roles: string[] = [];
   returnUrl: string;
   rememberMe: boolean;
@@ -61,10 +60,8 @@ export class LoginComponent implements OnInit {
         this.formLogin.reset();
         this.router.navigateByUrl(this.returnUrl);
         this.shareService.sendClickEvent();
-        console.log();
       },
       err => {
-        console.log('Lỗi aaaa');
         this.authService.isLoggedIn = false;
         const Toast = Swal.mixin({
           toast: true,

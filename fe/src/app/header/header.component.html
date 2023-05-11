@@ -28,7 +28,9 @@
       </a>
 
       <a routerLink="/cart" class="nav-item nav-link"style="color: whitesmoke">
-        <i class="fas fa-shopping-cart mx-4" style="color: whitesmoke"></i>
+        <i class="fas fa-shopping-cart mx-4" style="color: whitesmoke">
+          <sup *ngIf="itemCount>0">{{itemCount}}</sup>
+        </i>
       </a>
 
       <div class="nav-item dropdown">

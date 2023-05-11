@@ -29,7 +29,7 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
-    private Set<CartDetail> orderDetailSet;
+    private Set<CartDetail> cartDetailSet;
 
     public Product() {
     }
@@ -106,11 +106,11 @@ public class Product {
         this.brand = brand;
     }
 
-    public Set<CartDetail> getOrderDetailSet() {
-        return orderDetailSet;
+    public Set<CartDetail> getCartDetailSet() {
+        return cartDetailSet;
     }
 
-    public void setOrderDetailSet(Set<CartDetail> orderDetailSet) {
-        this.orderDetailSet = orderDetailSet;
+    public void setCartDetailSet(Set<CartDetail> cartDetailSet) {
+        this.cartDetailSet = cartDetailSet;
     }
 }

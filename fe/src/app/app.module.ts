@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import { CartComponent } from './cart/cart.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ReceiptComponent } from './receipt/receipt.component';
+import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ReceiptComponent } from './receipt/receipt.component';
     ProductDetailComponent,
     CartComponent,
     ErrorPageComponent,
-    ReceiptComponent
+    ReceiptComponent,
+    PurchaseHistoryComponent
   ],
     imports: [
         BrowserModule,

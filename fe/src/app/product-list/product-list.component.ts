@@ -7,6 +7,8 @@ import {CartDetailService} from '../service/cart-detail.service';
 import {TokenStorageService} from '../service/token-storage.service';
 import {UserService} from '../service/user.service';
 import Swal from 'sweetalert2';
+import {ShareService} from '../service/share.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -29,7 +31,10 @@ export class ProductListComponent implements OnInit {
               private brandService: BrandService,
               private cartDetailService: CartDetailService,
               private token: TokenStorageService,
-              private userService: UserService) {
+              private userService: UserService,
+              private shareService: ShareService,
+              private tokenStorageService: TokenStorageService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -93,13 +98,27 @@ export class ProductListComponent implements OnInit {
   }
 
   addCartDetail(productId: number) {
-    this.cartDetailService.addCartDetail(this.userId, productId).subscribe(()=>{
+    this.cartDetailService.addCartDetail(this.userId, productId, 1).subscribe(() => {
       Swal.fire({
         title: 'Thông báo!',
         text: 'Thêm mới giỏ hàng thành công',
         icon: 'success',
         confirmButtonText: 'OK'
       });
+      this.cartDetailService.findAllCart(this.userId).subscribe(item => {
+        this.shareService.setCount(item.length);
+      });
+    }, error => {
+      if (!this.tokenStorageService.getToken()) {
+        Swal.fire({
+          title: 'Thông báo!',
+          text: 'Bạn phải đăng nhập trước khi muốn mua hàng',
+          icon: 'error',
+          confirmButtonText: 'OK'
+          // timer: 10
+        });
+      }
+      this.router.navigateByUrl('/login');
     });
   }
 

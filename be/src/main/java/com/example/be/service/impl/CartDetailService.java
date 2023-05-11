@@ -39,4 +39,24 @@ public class CartDetailService implements ICartDetailService {
         iCardDetailRepository.deleteCartDetailByCart_CartIdAndProduct_ProductId(cartId, productId);
     }
 
+    @Override
+    public List<Integer> findAllCartDetailByUserIdAndDeleteStatus(Integer userId) {
+        return iCardDetailRepository.findAllCartDetailByUserIdAndDeleteStatus(userId);
+    }
+
+    @Override
+    public CartDetail findCartDetailByCartDetailIdAndDeleteStatus(Integer cartDetailId) {
+        return iCardDetailRepository.findCartDetailByCartDetailIdAndDeleteStatus(cartDetailId);
+    }
+
+    @Override
+    public void setCart(Integer userId) {
+        iCardDetailRepository.setCart(userId);
+    }
+
+    @Override
+    public void deleteAllCartDetail(Integer userId) {
+        iCardDetailRepository.deleteAllCartDetail(userId);
+    }
+
 }

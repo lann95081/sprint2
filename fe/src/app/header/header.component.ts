@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ShareService} from '../service/share.service';
 import {TokenStorageService} from '../service/token-storage.service';
-import Swal from 'sweetalert2';
 import {UserService} from '../service/user.service';
+import {CartDetailService} from '../service/cart-detail.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -16,18 +16,29 @@ export class HeaderComponent implements OnInit {
   name?: string;
   role?: string;
   isLoggedIn = false;
+  itemCount = 0;
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
               private accountService: UserService,
+              private cart: CartDetailService,
               private router: Router) {
-    this.loadHeader();
-  }
-
-  ngOnInit(): void {
     this.shareService.getClickEvent().subscribe(() => {
       this.loadHeader();
     });
+    this.shareService.getCount().subscribe(count => {
+      this.itemCount = count;
+    });
+  }
+
+  loader() {
+    this.shareService.getClickEvent();
+    this.shareService.getCount().subscribe(count => {
+      this.itemCount = count;
+    });
+  }
+
+  ngOnInit(): void {
     this.loadHeader();
   }
 
@@ -45,11 +56,16 @@ export class HeaderComponent implements OnInit {
   findNameUser(): void {
     this.accountService.findUserEmail(this.username).subscribe(next => {
       this.name = next.name;
+      this.cart.findAllCart(next?.userId).subscribe(item => {
+        this.itemCount = item?.length;
+      });
     });
   }
 
   logOut() {
     this.tokenStorageService.signOut();
     this.ngOnInit();
+    this.shareService.setCount(0);
+    this.router.navigateByUrl('/login');
   }
 }

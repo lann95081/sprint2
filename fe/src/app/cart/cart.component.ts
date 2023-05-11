@@ -5,6 +5,7 @@ import {UserService} from '../service/user.service';
 import {ICartDetailDto} from '../dto/icart-detail-dto';
 import {ProductService} from '../service/product.service';
 import Swal from 'sweetalert2';
+import {ShareService} from '../service/share.service';
 
 @Component({
   selector: 'app-cart',
@@ -16,24 +17,33 @@ export class CartComponent implements OnInit {
   username: string;
   userId: number;
   sum = 0;
-  price: number;
   total = 0;
   ship = 30000;
 
   constructor(private cart: CartDetailService,
               private token: TokenStorageService,
               private userService: UserService,
-              private productService: ProductService) {
+              private shareService: ShareService) {
   }
 
   ngOnInit(): void {
+    this.cartDetailDtos = [];
+    this.shareService.getClickEvent().subscribe(() => {
+      this.username = this.token.getUser()?.username;
+      this.userService.findUserEmail(this.username).subscribe(next => {
+        this.userId = next.userId;
+        this.cart.findAllCart(this.userId).subscribe(data => {
+          this.cartDetailDtos = data;
+          this.getTotal();
+        });
+      });
+    });
     this.username = this.token.getUser()?.username;
     this.userService.findUserEmail(this.username).subscribe(next => {
       this.userId = next.userId;
       this.cart.findAllCart(this.userId).subscribe(data => {
         this.cartDetailDtos = data;
         this.getTotal();
-
       });
     });
   }
@@ -84,12 +94,12 @@ export class CartComponent implements OnInit {
   getAll(userId: number) {
     this.cart.findAllCart(userId).subscribe(data => {
       this.cartDetailDtos = data;
-
     });
   }
 
   delete(cartId: number, productId: number, productName: string, cartDetailId: number) {
     this.cart.delete(cartId, productId).subscribe(() => {
+      this.shareService.sendClickEvent();
       Swal.fire({
         title: 'Thông báo!',
         text: 'Bạn vừa xoá mặt hàng ' + productName,
