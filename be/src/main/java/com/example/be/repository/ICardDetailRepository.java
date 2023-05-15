@@ -43,5 +43,5 @@ public interface ICardDetailRepository extends JpaRepository<CartDetail, Integer
             "join cart c on cd.cart_id = c.cart_id " +
             "set cd.delete_status = 0 " +
             "where c.userId = :userId",nativeQuery = true)
-    void deleteAllCartDetail( @Param("id") Integer userId);
+    void deleteAllCartDetail( @Param("userId") Integer userId);
 }

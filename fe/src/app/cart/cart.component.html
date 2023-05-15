@@ -112,7 +112,7 @@
             <b>{{total}}đ</b>
           </div>
           <div class="row mt-4">
-            <button class="btn btn-outline-dark" routerLink="/paypal">Đi tới thanh toán</button>
+            <button class="btn btn-outline-dark" routerLink="/paypal" [disabled]="cartDetailDtos?.length === 0">Đi tới thanh toán</button>
           </div>
         </div>
 

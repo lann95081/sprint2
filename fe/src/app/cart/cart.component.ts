@@ -99,13 +99,14 @@ export class CartComponent implements OnInit {
 
   delete(cartId: number, productId: number, productName: string, cartDetailId: number) {
     this.cart.delete(cartId, productId).subscribe(() => {
-      this.shareService.sendClickEvent();
+
       Swal.fire({
         title: 'Thông báo!',
         text: 'Bạn vừa xoá mặt hàng ' + productName,
         icon: 'success',
         confirmButtonText: 'OK'
       });
+      this.shareService.sendClickEvent();
       this.cart.findAllCart(this.userId).subscribe(item => {
         this.cartDetailDtos = item;
       });
